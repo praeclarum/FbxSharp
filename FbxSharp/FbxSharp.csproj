@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+    <TargetFrameworks>net6.0-ios;net6.0-maccatalyst;net6.0-macos</TargetFrameworks>
     <IsBindingProject>true</IsBindingProject>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <BundleName>FbxSharp</BundleName>
@@ -31,21 +31,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <NativeReference Condition=" '$(RuntimeIdentifier)' == 'ios-arm64' " Include="lib/ios/arm64/libFbxSharp.a">
+    <NativeReference Condition=" '$(RuntimeIdentifier)' == 'ios-arm64' " Include="..\lib\ios\arm64\libFbxSharp.a">
       <Kind>Static</Kind>
       <IsCxx>true</IsCxx>
       <ForceLoad>false</ForceLoad>
       <LinkerFlags>-lxml2 -lz -liconv</LinkerFlags>
       <Link>libFbxSharp.a</Link>
     </NativeReference>
-    <NativeReference Condition=" '$(RuntimeIdentifier)' == 'iossimulator-x64' " Include="lib/iossimulator/x64/libFbxSharp.a">
+    <NativeReference Condition=" '$(RuntimeIdentifier)' == 'iossimulator-x64' " Include="..\lib\iossimulator\x64\libFbxSharp.a">
       <Kind>Static</Kind>
       <IsCxx>true</IsCxx>
       <ForceLoad>false</ForceLoad>
       <LinkerFlags>-lxml2 -lz -liconv</LinkerFlags>
       <Link>libFbxSharp.a</Link>
     </NativeReference>
-    <NativeReference Condition=" '$(RuntimeIdentifier)' == 'maccatalyst-x64' " Include="lib/maccat/x64/libFbxSharp.a">
+    <NativeReference Condition=" '$(RuntimeIdentifier)' == 'maccatalyst-x64' " Include="..\lib\maccat\x64\libFbxSharp.a">
       <Kind>Static</Kind>
       <IsCxx>true</IsCxx>
       <ForceLoad>false</ForceLoad>

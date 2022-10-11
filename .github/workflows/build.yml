@@ -24,6 +24,6 @@ jobs:
     - name: Build native
       run: make buildnative
     - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet build --no-restore -c Release
+    # - name: Test
+    #   run: dotnet test --no-build -c Release --verbosity normal
