@@ -1,5 +1,6 @@
 CXX=clang++
 CXXFLAGS=-std=c++11 -frtti -fexceptions -fPIC -O3 -Wall -Werror -Wno-error=unused-variable -Wno-uninitialized-const-reference
+LINKFLAGS=-lxml2 -lz -liconv -framework Foundation -framework ModelIO -lfbxsdk
 
 CPPSRCS=
 MMNAMES=ConvertToModelIO.mm ConvertFromModelIO.mm FbxSharp.mm
@@ -48,6 +49,12 @@ lib/ios/arm64/libFbxSharp.a: $(SRCS) FbxSharp/FbxSharp.h Makefile fbxsdk/ios/lib
 	$(AR) -rcs $@ $(OBJS)
 	rm $(OBJS)
 
+lib/ios/arm64/libFbxSharpNative.dylib: $(SRCS) FbxSharp/FbxSharp.h Makefile fbxsdk/ios/lib/ios/libfbxsdk.a
+	mkdir -p $(dir $@)
+	rm -f $@
+	lipo fbxsdk/ios/lib/ios/libfbxsdk.a -thin arm64 -output lib/ios/arm64/libfbxsdk.a
+	$(CXX) $(CXXFLAGS) $(LINKFLAGS) -shared -isysroot "$(IOS_SYSROOT)" -target arm64-apple-ios10.0 -Ifbxsdk/ios/include -Llib/ios/arm64  $(SRCS) -o $@
+
 lib/iossimulator/x64/libFbxSharp.a: $(SRCS) FbxSharp/FbxSharp.h Makefile fbxsdk/ios/lib/iossimulator/libfbxsdk.a
 	mkdir -p $(dir $@)
 	rm -f $@
@@ -56,6 +63,12 @@ lib/iossimulator/x64/libFbxSharp.a: $(SRCS) FbxSharp/FbxSharp.h Makefile fbxsdk/
 	$(AR) -rcs $@ $(OBJS)
 	rm $(OBJS)
 
+lib/iossimulator/x64/libFbxSharpNative.dylib: $(SRCS) FbxSharp/FbxSharp.h Makefile fbxsdk/ios/lib/iossimulator/libfbxsdk.a
+	mkdir -p $(dir $@)
+	rm -f $@
+	cp fbxsdk/ios/lib/iossimulator/libfbxsdk.a lib/iossimulator/x64/libfbxsdk.a
+	$(CXX) $(CXXFLAGS) $(LINKFLAGS) -shared -isysroot "$(IOSSIM_SYSROOT)" -stdlib=libc++ -target x86_64-apple-iossim10.0 -Ifbxsdk/ios/include -Llib/iossimulator/x64  $(SRCS) -o $@
+
 lib/maccat/x64/libFbxSharp.a: $(SRCS) FbxSharp/FbxSharp.h Makefile fbxsdk/mac/lib/maccat/libfbxsdk.a
 	mkdir -p $(dir $@)
 	rm -f $@
@@ -63,6 +76,12 @@ lib/maccat/x64/libFbxSharp.a: $(SRCS) FbxSharp/FbxSharp.h Makefile fbxsdk/mac/li
 	$(CXX) $(CXXFLAGS) -target x86_64-apple-ios13.1-macabi -Ifbxsdk/mac/include $(SRCS) -c
 	$(AR) -rcs $@ $(OBJS)
 	rm $(OBJS)
+
+lib/maccat/x64/libFbxSharpNative.dylib: $(SRCS) FbxSharp/FbxSharp.h Makefile fbxsdk/mac/lib/maccat/libfbxsdk.a
+	mkdir -p $(dir $@)
+	rm -f $@
+	lipo fbxsdk/mac/lib/maccat/libfbxsdk.a -thin x86_64 -output lib/maccat/x64/libfbxsdk.a
+	$(CXX) $(CXXFLAGS) $(LINKFLAGS) -shared -isysroot "$(MACCAT_SYSROOT)" -target x86_64-apple-ios13.1-macabi -Ifbxsdk/mac/include -Llib/maccat/x64  $(SRCS) -o $@
 
 lib/mac/x64/libFbxSharp.a: $(SRCS) FbxSharp/FbxSharp.h Makefile fbxsdk/mac/lib/mac/libfbxsdk.a
 	mkdir -p $(dir $@)
