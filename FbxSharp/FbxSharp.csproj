@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+    <IsBindingProject>true</IsBindingProject>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <BundleName>FbxSharp</BundleName>
+  </PropertyGroup>
+
+  <!-- platform version number information -->
+  <PropertyGroup Condition="$(TargetFramework.Contains('-ios'))">
+    <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
+    <SupportedOSPlatformVersion>10.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.Contains('-tvos'))">
+    <SupportedOSPlatformVersion>10.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.Contains('-maccatalyst'))">
+    <RuntimeIdentifier>maccatalyst-x64</RuntimeIdentifier>
+    <SupportedOSPlatformVersion>13.1</SupportedOSPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.Contains('-macos'))">
+    <SupportedOSPlatformVersion>10.14</SupportedOSPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.Contains('-android'))">
+    <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.Contains('-windows10'))">
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <NativeReference Condition=" '$(RuntimeIdentifier)' == 'ios-arm64' " Include="lib/ios/arm64/libFbxSharp.a">
+      <Kind>Static</Kind>
+      <IsCxx>true</IsCxx>
+      <ForceLoad>false</ForceLoad>
+      <LinkerFlags>-lxml2 -lz -liconv</LinkerFlags>
+      <Link>libFbxSharp.a</Link>
+    </NativeReference>
+    <NativeReference Condition=" '$(RuntimeIdentifier)' == 'iossimulator-x64' " Include="lib/iossimulator/x64/libFbxSharp.a">
+      <Kind>Static</Kind>
+      <IsCxx>true</IsCxx>
+      <ForceLoad>false</ForceLoad>
+      <LinkerFlags>-lxml2 -lz -liconv</LinkerFlags>
+      <Link>libFbxSharp.a</Link>
+    </NativeReference>
+    <NativeReference Condition=" '$(RuntimeIdentifier)' == 'maccatalyst-x64' " Include="lib/maccat/x64/libFbxSharp.a">
+      <Kind>Static</Kind>
+      <IsCxx>true</IsCxx>
+      <ForceLoad>false</ForceLoad>
+      <LinkerFlags>-lxml2 -lz -liconv</LinkerFlags>
+      <Link>libFbxSharp.a</Link>
+    </NativeReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ConvertFromModelIO.mm" />
+    <None Include="ConvertToModelIO.mm" />
+    <None Include="FbxSharp.h" />
+    <None Include="FbxSharp.mm" />
+    <None Include="NativeTest.mm" />
+  </ItemGroup>
+  <ItemGroup>
+    <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ObjcBindingCoreSource Include="Structs.cs" />
+  </ItemGroup>
+</Project>
