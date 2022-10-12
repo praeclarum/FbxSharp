@@ -27,3 +27,5 @@ jobs:
       run: make test
     - name: Build managed
       run: make managed
+    - name: Build nuget
+      run: make nuget
