@@ -20,8 +20,8 @@ jobs:
       run: |
         VERSION=$VERSION_PREFIX.$VERSION_SUFFIX
         sed -i.bak "s:<Version>1.0.0</Version>:<Version>$VERSION</Version>:g" FbxSharp/FbxSharp.csproj
-        sed -i.bak "s:<version>1.0.0</version>:<version>$VERSION</version>:g" FbxSharp.nuspec
-        sed -i.bak "s:version=\"1.0.0\":version=\"$VERSION\":g" FbxSharp.nuspec
+        sed -i.bak "s:<version>1.0.0</version>:<version>$VERSION</version>:g" Praeclarum.FbxSharp.nuspec
+        sed -i.bak "s:version=\"1.0.0\":version=\"$VERSION\":g" Praeclarum.FbxSharp.nuspec
         sed -i.bak "s:<version>1.0.0</version>:<version>$VERSION</version>:g" FbxSharp.Native.nuspec
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
