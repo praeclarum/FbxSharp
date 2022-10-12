@@ -17,6 +17,7 @@
         <!-- DLLs and resources -->
         <!-- https://learn.microsoft.com/en-us/nuget/create-packages/supporting-multiple-target-frameworks#architecture-specific-folders -->
         <file src="lib\ios\arm64\libFbxSharpNative.dylib" target="runtimes\ios-arm64\native"/>
-
+        <file src="lib\iossimulator\x64\libFbxSharpNative.dylib" target="runtimes\iossimulator-x64\native"/>
+        <file src="lib\maccat\x64\libFbxSharpNative.dylib" target="runtimes\maccatalyst-x64\native"/>
     </files>
 </package>

@@ -39,6 +39,7 @@ clean:
 nuget: FbxSharp.nuspec FbxSharp.Native.nuspec $(ASMS) $(LIBS)
 	nuget pack FbxSharp.nuspec
 	nuget pack FbxSharp.Native.nuspec
+	ls -al *.nupkg
 
 
 managed: $(ASMS)
