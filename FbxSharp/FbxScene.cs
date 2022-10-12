@@ -5,6 +5,8 @@ namespace FbxSharp
 {
 	public class FbxScene : IDisposable
 	{
+        const string LibFbxSdk = "libFbxSharpNative";
+
         IntPtr sceneHandle;
 
         bool disposedValue;
@@ -45,10 +47,10 @@ namespace FbxSharp
             }
         }
 
-        [DllImport("__Internal", CharSet = CharSet.Ansi)]
+        [DllImport(LibFbxSdk, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         static extern IntPtr fbxConvertSceneToModelIO(IntPtr sceneHandle, IntPtr assetHandle, IntPtr errorsHandle);
 
-        [DllImport("__Internal", CharSet = CharSet.Ansi)]
+        [DllImport(LibFbxSdk, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         static extern IntPtr fbxConvertModelIOToScene(IntPtr assetHandle, IntPtr errorsHandle);
 #endif
 
@@ -77,13 +79,13 @@ namespace FbxSharp
             }
         }
 
-        [DllImport("__Internal", CharSet=CharSet.Ansi)]
+        [DllImport(LibFbxSdk, CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
 		static extern IntPtr fbxLoadScene(string path);
 
-        [DllImport("__Internal", CharSet=CharSet.Ansi)]
+        [DllImport(LibFbxSdk, CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
 		static extern int fbxSaveScene(IntPtr sceneHandle, string path, int fileFormat, int embedMedia, int forceAscii);
 
-        [DllImport("__Internal", CharSet=CharSet.Ansi)]
+        [DllImport(LibFbxSdk, CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
         static extern void fbxDestroyScene(IntPtr sceneHandle);
 
         protected virtual void Dispose(bool disposing)

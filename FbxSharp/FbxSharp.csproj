@@ -31,26 +31,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <NativeReference Condition=" '$(RuntimeIdentifier)' == 'ios-arm64' " Include="..\lib\ios\arm64\libFbxSharp.a">
-      <Kind>Static</Kind>
+    <NativeReference Condition=" '$(RuntimeIdentifier)' == 'ios-arm64' " Include="..\lib\ios\arm64\libFbxSharpNative.dylib">
+      <Kind>Dynamic</Kind>
       <IsCxx>true</IsCxx>
       <ForceLoad>false</ForceLoad>
-      <LinkerFlags>-lxml2 -lz -liconv</LinkerFlags>
-      <Link>libFbxSharp.a</Link>
+      <LinkerFlags></LinkerFlags>
+      <Link>libFbxSharpNative.dylib</Link>
     </NativeReference>
-    <NativeReference Condition=" '$(RuntimeIdentifier)' == 'iossimulator-x64' " Include="..\lib\iossimulator\x64\libFbxSharp.a">
-      <Kind>Static</Kind>
+    <NativeReference Condition=" '$(RuntimeIdentifier)' == 'iossimulator-x64' " Include="..\lib\iossimulator\x64\libFbxSharpNative.dylib">
+      <Kind>Dynamic</Kind>
       <IsCxx>true</IsCxx>
       <ForceLoad>false</ForceLoad>
-      <LinkerFlags>-lxml2 -lz -liconv</LinkerFlags>
-      <Link>libFbxSharp.a</Link>
+      <LinkerFlags></LinkerFlags>
+      <Link>libFbxSharpNative.dylib</Link>
     </NativeReference>
-    <NativeReference Condition=" '$(RuntimeIdentifier)' == 'maccatalyst-x64' " Include="..\lib\maccat\x64\libFbxSharp.a">
-      <Kind>Static</Kind>
+    <NativeReference Condition=" '$(RuntimeIdentifier)' == 'maccatalyst-x64' " Include="..\lib\maccat\x64\libFbxSharpNative.dylib">
+      <Kind>Dynamic</Kind>
       <IsCxx>true</IsCxx>
       <ForceLoad>false</ForceLoad>
-      <LinkerFlags>-lxml2 -lz -liconv</LinkerFlags>
-      <Link>libFbxSharp.a</Link>
+      <LinkerFlags></LinkerFlags>
+      <Link>libFbxSharpNative.dylib</Link>
     </NativeReference>
   </ItemGroup>
   <ItemGroup>
