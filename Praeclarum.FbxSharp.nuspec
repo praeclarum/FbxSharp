@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package >
     <metadata>
-        <id>FbxSharp</id>
+        <id>Praeclarum.FbxSharp</id>
         <version>1.0.0</version>
-        <title>FbxSharp</title>
+        <title>Praeclarum.FbxSharp</title>
         <authors>praeclarum</authors>
         <owners>praeclarum</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>

@@ -36,8 +36,8 @@ clean:
 	rm -rf FbxSharp/obj
 
 
-nuget: FbxSharp.nuspec FbxSharp.Native.nuspec $(ASMS) $(LIBS)
-	nuget pack FbxSharp.nuspec
+nuget: Praeclarum.FbxSharp.nuspec FbxSharp.Native.nuspec $(ASMS) $(LIBS)
+	nuget pack Praeclarum.FbxSharp.nuspec
 	nuget pack FbxSharp.Native.nuspec
 	ls -al *.nupkg
 

@@ -42,5 +42,5 @@ jobs:
     - name: Store nugets
       uses: actions/upload-artifact@v2
       with:
-        name: nuget
+        name: FbxSharpNugets
         path: "*.nupkg"
