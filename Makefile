@@ -23,7 +23,9 @@ MAC_SYSROOT=$(shell xcrun --sdk macosx --show-sdk-path)
 IOS_SYSROOT=$(shell xcrun --sdk iphoneos --show-sdk-path)
 IOSSIM_SYSROOT=$(shell xcrun --sdk iphonesimulator --show-sdk-path)
 
-all: buildnet
+ASMS=FbxSharp/bin/Release/net6.0-ios/ios-arm64/FbxSharp.dll FbxSharp/bin/Release/net6.0-ios/iossimulator-x64/FbxSharp.dll FbxSharp/bin/Release/net6.0-maccatalyst/maccatalyst-x64/FbxSharp.dll
+
+all: nuget
 
 clean:
 	rm -f $(LIBS)
@@ -33,9 +35,13 @@ clean:
 	rm -rf FbxSharp/bin
 	rm -rf FbxSharp/obj
 
-buildnative: libs
 
-buildnet: FbxSharp/bin/Release/net6.0-ios/ios-arm64/FbxSharp.dll FbxSharp/bin/Release/net6.0-ios/iossimulator-x64/FbxSharp.dll FbxSharp/bin/Release/net6.0-maccatalyst/maccatalyst-x64/FbxSharp.dll
+nuget: FbxSharp.nuspec FbxSharp.Native.nuspec $(ASMS) $(LIBS)
+	nuget pack FbxSharp.nuspec
+	nuget pack FbxSharp.Native.nuspec
+
+
+managed: $(ASMS)
 
 FbxSharp/bin/Release/net6.0-ios/ios-arm64/FbxSharp.dll: FbxSharp/FbxSharp.csproj $(CSSRCS) lib/ios/arm64/libFbxSharpNative.dylib
 	dotnet build -c Release /p:TargetFrameworks=net6.0-ios /p:RuntimeIdentifier=ios-arm64 FbxSharp/FbxSharp.csproj
@@ -46,7 +52,8 @@ FbxSharp/bin/Release/net6.0-ios/iossimulator-x64/FbxSharp.dll: FbxSharp/FbxSharp
 FbxSharp/bin/Release/net6.0-maccatalyst/maccatalyst-x64/FbxSharp.dll: FbxSharp/FbxSharp.csproj $(CSSRCS) lib/maccat/x64/libFbxSharpNative.dylib
 	dotnet build -c Release /p:TargetFrameworks=net6.0-maccatalyst /p:RuntimeIdentifier=maccatalyst-x64 FbxSharp/FbxSharp.csproj
 
-libs: $(LIBS)
+
+native: $(LIBS)
 
 lib/ios/arm64/libFbxSharpNative.dylib: $(SRCS) FbxSharp/FbxSharp.h fbxsdk/ios/lib/ios/libfbxsdk.a
 	mkdir -p $(dir $@)
@@ -74,9 +81,11 @@ lib/mac/x64/libFbxSharp.a: $(SRCS) FbxSharp/FbxSharp.h fbxsdk/mac/lib/mac/libfbx
 	$(AR) -rcs $@ $(OBJS)
 	rm $(OBJS)
 
+
+test: bin/nativetest
+	./bin/nativetest
+
 bin/nativetest: lib/mac/x64/libFbxSharp.a FbxSharp/NativeTest.mm
 	mkdir -p bin
 	$(CXX) $(CXXFLAGS) -g -Llib/mac/x64 -lFbxSharp -arch x86_64 -Ifbxsdk/mac/include -framework Foundation -framework ModelIO -lz -lxml2 -liconv -o bin/nativetest FbxSharp/NativeTest.mm
 
-test: bin/nativetest
-	./bin/nativetest

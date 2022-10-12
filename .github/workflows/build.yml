@@ -22,8 +22,8 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build native
-      run: make buildnative
+      run: make native
     - name: Test native
       run: make test
     - name: Build managed
-      run: make buildnet
+      run: make managed
