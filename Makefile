@@ -25,7 +25,15 @@ IOSSIM_SYSROOT=$(shell xcrun --sdk iphonesimulator --show-sdk-path)
 
 all: buildnet
 
-buildnative: 
+clean:
+	rm -f $(LIBS)
+	rm -f $(OBJS)
+	rm -rf bin
+	rm -rf obj
+	rm -rf FbxSharp/bin
+	rm -rf FbxSharp/obj
+
+buildnative: libs
 
 buildnet: FbxSharp/bin/Release/net6.0-ios/ios-arm64/FbxSharp.dll FbxSharp/bin/Release/net6.0-ios/iossimulator-x64/FbxSharp.dll FbxSharp/bin/Release/net6.0-maccatalyst/maccatalyst-x64/FbxSharp.dll
 
@@ -39,12 +47,6 @@ FbxSharp/bin/Release/net6.0-maccatalyst/maccatalyst-x64/FbxSharp.dll: FbxSharp/F
 	dotnet build -c Release /p:TargetFrameworks=net6.0-maccatalyst /p:RuntimeIdentifier=maccatalyst-x64 FbxSharp/FbxSharp.csproj
 
 libs: $(LIBS)
-
-clean:
-	rm -f $(LIBS)
-	rm -f $(OBJS)
-	rm -rf bin
-	rm -rf obj
 
 lib/ios/arm64/libFbxSharpNative.dylib: $(SRCS) FbxSharp/FbxSharp.h fbxsdk/ios/lib/ios/libfbxsdk.a
 	mkdir -p $(dir $@)
